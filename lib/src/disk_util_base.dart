@@ -28,6 +28,8 @@ class DiskUtil {
     }
   }
 
+  ///Method used to format the byte size into more human readable format
+  ///containing the scale.
   static String formatSize(int size) {
     for (var entry in _sizeIncrements.entries) {
         var result = size / entry.key;

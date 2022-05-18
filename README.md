@@ -10,8 +10,13 @@ A simple usage example:
 ```dart
 import 'package:disk_util/disk_util.dart';
 
-main() {
-  var awesome = new Awesome();
+main() async {
+  //Create instance of DiskUtil Class
+  var diskUtil = DiskUtil();
+  //Query System for Drives
+  List<Disk> drives = await diskUtil.get_disks();
+  //Get the volumes for each drive
+  var drive_volumes = drives.map((disk) => disk.volumes).toList();
 }
 ```
 
