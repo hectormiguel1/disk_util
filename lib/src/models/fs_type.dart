@@ -21,7 +21,8 @@ enum FSType {
   ZFS("zfs"),
   SwapFS("swap"),
   UFS("ufs"),
-  TempFS("tmpfs");
+  TempFS("tmpfs"),
+  EFI("efi");
 
   final String type;
 

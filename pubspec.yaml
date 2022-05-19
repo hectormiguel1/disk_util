@@ -14,3 +14,4 @@ dev_dependencies:
   test: ^1.16.0
 dependencies: 
   logger: ^1.1.0
+  plist_parser: ^0.0.9
