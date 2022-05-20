@@ -46,6 +46,6 @@ main() async {
     - Works as Expected
   - [X] Mac OS Support
     - Known bug where Volumes appear to be full!
-  - [-] Windows Support
+  - [X] Windows Support
     - Initial Support, not yet fully Tested
 
