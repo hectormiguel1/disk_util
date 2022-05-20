@@ -4,7 +4,8 @@ import 'package:disk_util/src/handlers/logger.dart';
 enum PTableType {
   MS_DOS("ms-dos"),
   LOOP("loop"),
-  GPT("gpt");
+  GPT("gpt"),
+  APFS_Container("apfs_container");
 
   ///String representation of the Partition Table Type
   final String type;
