@@ -3,6 +3,7 @@ import 'package:disk_util/src/handlers/logger.dart';
 ///Basic representation of a Drive's Partition Table Scheme
 enum PTableType {
   MS_DOS("ms-dos"),
+  LOOP("loop"),
   GPT("gpt");
 
   ///String representation of the Partition Table Type

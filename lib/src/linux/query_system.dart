@@ -18,7 +18,7 @@ Future<List<Disk>> get_disks() async {
     disks.add(Disk(
       fsHandler: Directory(device['path']),
       size: device['size'],
-      volumes: (device['children'] as List<dynamic>).map((element){
+      volumes: device['children'] != null? (device['children'] as List<dynamic>).map((element){
         bool isMounted = (element['mountpoint']) != null;
         String? mountpoint = element['mountpoint'];
         if (isMounted) {
@@ -35,12 +35,14 @@ Future<List<Disk>> get_disks() async {
           label: element['label'],
           fsType: FSType.fromString(element['fstype'])
         );
-      }).toList(),
+      }).toList() : [],
       isSystemDrive: isSystemDrive,
-      pTableType: PTableType.fromString(device['pttype']))
+      pTableType: PTableType.fromString(device['pttype'] ?? PTableType.LOOP.type ))
     );
   }
   logger.i("Found ${disks.length} Drives");
+  //Remove Loop Devices as these are not important for user data. 
+  disks.removeWhere((element) => element.partitionScheme == PTableType.LOOP);
   return disks;
 }
 
