@@ -28,7 +28,6 @@ Future<List<Disk>> get_disks() async {
   return disks;
 }
 
-
 Future<Map<dynamic, dynamic>> _query_apfs() async {
   var process = await Process.run("diskutil", ["apfs", "list", "-plist"]);
   if (process.exitCode == _sucess) {
@@ -41,7 +40,7 @@ Future<Map<dynamic, dynamic>> _query_apfs() async {
 
 Future<Volume> _get_vol(String volumeIdentifier) async {
   var process = await Process.run(
-      "diskutil", ["info", "/dev/$volumeIdentifier", "-plist"]);
+      "diskutil", ["info", "-plist", "/dev/$volumeIdentifier"]);
 
   if (process.exitCode == _sucess) {
     var volume_info = PlistParser().parseXml(process.stdout);
