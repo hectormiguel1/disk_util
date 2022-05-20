@@ -7,6 +7,14 @@ final int _sucess = 0;
 
 Future<List<Disk>> get_disks() async {
   List<Disk> disks = [];
+
+  var apfs_data = (await _query_apfs())[""];
+
+  return disks;
+}
+
+Future<List<Disk>> _get_disks() async {
+  List<Disk> disks = [];
   var _os_disks = await _get_os_disks();
   _os_disks.forEach((element) async {
     var disk_props = await _get_disk_info(element);
@@ -55,7 +63,7 @@ Future<List<dynamic>> _get_os_disks() async {
     return PlistParser().parse(process.stdout as String)["AllDisks"] as List;
   } else {
     logger.e("OS Call exited with non zero exit code: ${process.exitCode}");
-    throw "Non-Zero exit code";
+    throw "Process Exit Non-Zero";
   }
 }
 
@@ -66,6 +74,16 @@ Future<Map<dynamic, dynamic>> _get_disk_info(String disk) async {
   } else {
     logger
         .e("DiskUtil info exited with Non-Zero exit Code: ${process.exitCode}");
-    throw "Non-Zero exit code: ${process.exitCode}";
+    throw "Process Exit Non-Zero";
+  }
+}
+
+Future<Map<dynamic, dynamic>> _query_apfs() async {
+  var process = await Process.run("diskutil", ["apfs", "list", "-plist"]);
+  if (process.exitCode == _sucess) {
+    return PlistParser().parseXml(process.stdout as String);
+  } else {
+    logger.e("DiskUtil Non-Zero Exit Code: ${process.exitCode}");
+    throw "Process exit Non-Zero";
   }
 }
