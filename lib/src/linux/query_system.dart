@@ -42,7 +42,7 @@ Future<List<Disk>> get_disks() async {
   }
   logger.i("Found ${disks.length} Drives");
   //Remove Loop Devices as these are not important for user data. 
-  disks.removeWhere((element) => element.partitionScheme == PTableType.LOOP);
+  disks.removeWhere((disk) => disk.partitionScheme == PTableType.LOOP);
   return disks;
 }
 
