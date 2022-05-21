@@ -30,15 +30,14 @@ Future<List<Disk>> get_disks() async {
   for (var volID in found_nodes["Volumes"]) {
     executor.scheduleTask(() async {
       var vol_info = await _get_data(volID);
-      disks
+      var parent_disk = disks
           .firstWhere((element) =>
-              element.fsHandler.path == "/dev/${vol_info["ParentWholeDisk"]}")
-          .volumes
-          .add(Volume(
+              element.fsHandler.path == "/dev/${vol_info["ParentWholeDisk"]}");
+          parent_disk.volumes.add(Volume(
               fsHandler: Directory(vol_info["DeviceNode"]),
               fsSize: vol_info["Size"],
-              sizeAvail: vol_info["FreeSpace"],
-              sizeUsed: vol_info["Size"] - vol_info["FreeSpace"],
+              sizeAvail: (parent_disk.size - vol_info["Size"] as int),
+              sizeUsed: vol_info["Size"],
               fsType: vol_info["FilesystemType"] == "msdos"
                   ? FSType.FAT16
                   : FSType.fromString(vol_info["FilesystemType"]),
