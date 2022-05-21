@@ -13,5 +13,6 @@ dev_dependencies:
   lints: ^1.0.1
   test: ^1.16.0
 dependencies: 
+  executor: ^2.2.2
   logger: ^1.1.0
   plist_parser: ^0.0.9
