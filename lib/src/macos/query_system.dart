@@ -25,7 +25,7 @@ Future<List<Disk>> get_disks() async {
               : PTableType.fromString(drive_info["Content"]));
     }).then((disk) => disks.add(disk));
   }
-  executor.join(withWaiting: true);
+  await executor.join(withWaiting: true);
 
   for (var volID in found_nodes["Volumes"]) {
     executor.scheduleTask(() async {
@@ -50,7 +50,7 @@ Future<List<Disk>> get_disks() async {
     });
   }
 
-  executor.join(withWaiting: true);
+  await executor.join(withWaiting: true);
   executor.close();
   return disks;
 }
@@ -84,7 +84,7 @@ Future<Map<String, dynamic>> _query_drives() async {
     result["Volumes"] = parsedPlist["AllDisks"];
     result["Disks"] = parsedPlist["WholeDisks"];
     result["Volumes"]!
-        .removeWhere((element) => result["Disks"]!.contains(element));
+        .removeWhere((element) => (result["Disks"] as List).contains(element));
     return result;
   } else {
     logger.e("Disk Util Exit Code: ${process.exitCode}");

@@ -29,7 +29,7 @@ class Disk {
   Directory get fsHandler => _fsHandler;
 
   ///Get all the current volumes on this drive
-  UnmodifiableListView<Volume> get volumes => UnmodifiableListView(_volumes);
+  List<Volume> get volumes => _volumes;
 
   ///Get the size of the drive in bytes
   int get size => _size;

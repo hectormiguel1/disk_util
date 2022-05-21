@@ -5,6 +5,7 @@ enum PTableType {
   MS_DOS("ms-dos"),
   LOOP("loop"),
   GPT("gpt"),
+  Unkown("unkown"),
   APFS_Container("apfs_container");
 
   ///String representation of the Partition Table Type
@@ -23,7 +24,6 @@ enum PTableType {
         return pttype;
       }
     }
-    logger.e("Unkown Partition Table Type: $str");
-    throw "Unkown Partition Table Type: $str";
+    return PTableType.Unkown;
   }
 }
