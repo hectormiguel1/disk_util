@@ -8,10 +8,13 @@ final int _sucess = 0;
 
 Future<List<Disk>> get_disks() async {
   List<Disk> disks = [];
-
+  var apfs_data = {};
   var executor = Executor(concurrency: 5);
 
   var found_nodes = await _query_drives();
+  executor
+      .scheduleTask<Map<dynamic, dynamic>>(() async => await _query_apfs())
+      .then((value) => apfs_data = value);
 
   for (var diskID in found_nodes["Disks"]) {
     executor.scheduleTask<Disk>(() async {
@@ -30,22 +33,35 @@ Future<List<Disk>> get_disks() async {
   for (var volID in found_nodes["Volumes"]) {
     executor.scheduleTask(() async {
       var vol_info = await _get_data(volID);
-      var parent_disk = disks
-          .firstWhere((element) =>
-              element.fsHandler.path == "/dev/${vol_info["ParentWholeDisk"]}");
-          parent_disk.volumes.add(Volume(
-              fsHandler: Directory(vol_info["DeviceNode"]),
-              fsSize: vol_info["Size"],
-              sizeAvail: (parent_disk.size - vol_info["Size"] as int),
-              sizeUsed: vol_info["Size"],
-              fsType: vol_info["FilesystemType"] == "msdos"
-                  ? FSType.FAT16
-                  : FSType.fromString(vol_info["FilesystemType"]),
-              mountPoint: (vol_info["MountPoint"] as String).isEmpty
-                  ? null
-                  : Directory(vol_info["MountPoint"]),
-              isMounted: (vol_info["MountPoint"] as String).isNotEmpty,
-              label: vol_info["VolumeName"]));
+      var fsType = vol_info["FilesystemType"] == "msdos"
+          ? FSType.FAT16
+          : FSType.fromString(vol_info["FilesystemType"]);
+      var usedSpace = vol_info["Size"] - vol_info["FreeSpace"];
+      var size = vol_info["Size"];
+      var freeSpace = vol_info["FreeSpace"];
+
+      var parent_disk = disks.firstWhere((element) =>
+          element.fsHandler.path == "/dev/${vol_info["ParentWholeDisk"]}");
+      if (fsType == FSType.APFS) {
+        usedSpace = ((apfs_data["Containers"] as List).firstWhere((element) =>
+                "/dev/${element["ContainerReference"]}" ==
+                parent_disk.fsHandler.path)["Volumes"] as List)
+            .firstWhere((element) =>
+                element["DeviceIdentifier"] ==
+                vol_info["DeviceIdentifier"])["CapacityInUse"];
+        freeSpace = size - usedSpace;
+      }
+      parent_disk.volumes.add(Volume(
+          fsHandler: Directory(vol_info["DeviceNode"]),
+          fsSize: size,
+          sizeAvail: freeSpace,
+          sizeUsed: usedSpace,
+          fsType: fsType,
+          mountPoint: (vol_info["MountPoint"] as String).isEmpty
+              ? null
+              : Directory(vol_info["MountPoint"]),
+          isMounted: (vol_info["MountPoint"] as String).isNotEmpty,
+          label: vol_info["VolumeName"]));
     });
   }
 
@@ -60,7 +76,7 @@ Future<Map<dynamic, dynamic>> _query_apfs() async {
     return PlistParser().parseXml(process.stdout as String);
   } else {
     logger.e("DiskUtil Non-Zero Exit Code: ${process.exitCode}");
-    throw "Process exit Non-Zero";
+    throw "Non-Zero Exit Code";
   }
 }
 
