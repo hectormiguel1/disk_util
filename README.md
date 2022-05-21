@@ -1,4 +1,25 @@
-A library for Dart developers.
+# A library for Dart developers
+
+Library will query the OS for disks and volumes and provide infomration about each device.
+
+### Disks
+
+- [X] FileSystem Node (/dev/sdX (linux), /dev/disk# (macos), \\\\.\\\\PhysicalDisk (windwos))
+- [X] Disk Size
+- [X] Disk is Main OS Drive
+- [X] Partition Scheme
+- [X] Volumes/Paritions on Disk
+
+### Volumes
+
+- [X] FileSystem Node (/dev/sdX# (linux), /dev/disk#s# (macos))
+- [X] Partition Size
+- [X] Free Space on Partition
+- [X] Space Used on Partition
+- [X] FileSystem Type (ext4, apfs, ntfs... see [fs_type.dart](lib/src/models/fs_type.dart))
+- [X] Partition Label if any
+- [X] Whether partition is mounted
+- [X] Partition Mount Point
 
 Created from templates made available by Stagehand under a BSD-style
 [license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
@@ -21,7 +42,10 @@ main() async {
 ```
 
 ## Features and bugs
+  - [X] Linux Support
+    - Works as Expected
+  - [X] Mac OS Support
+    - Known bug where Volumes appear to be full!
+  - [X] Windows Support
+    - Initial Support, not yet fully Tested
 
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: http://example.com/issues/replaceme
