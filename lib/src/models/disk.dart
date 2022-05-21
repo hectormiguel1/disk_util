@@ -37,6 +37,8 @@ class Disk {
   ///Get wether this is the OS drive
   bool get isSystemDrive => _isSystemDrive;
 
+  set isSystemDrive(bool val) => _isSystemDrive = val;
+
   ///Get the current Drive Partition Scheme (MS-DOS or GPT) as a [PTableType] enum
   PTableType get partitionScheme => _pTableType;
 
