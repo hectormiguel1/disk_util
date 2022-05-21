@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Bootable</key>
+	<false/>
+	<key>BusProtocol</key>
+	<string></string>
+	<key>CanBeMadeBootable</key>
+	<false/>
+	<key>CanBeMadeBootableRequiresDestroy</key>
+	<false/>
+	<key>Content</key>
+	<string>GUID_partition_scheme</string>
+	<key>DeviceBlockSize</key>
+	<integer>512</integer>
+	<key>DeviceIdentifier</key>
+	<string>disk0</string>
+	<key>DeviceNode</key>
+	<string>/dev/disk0</string>
+	<key>DeviceTreePath</key>
+	<string>IODeviceTree:/PCI0@0/S28@5</string>
+	<key>Ejectable</key>
+	<false/>
+	<key>EjectableMediaAutomaticUnderSoftwareControl</key>
+	<false/>
+	<key>EjectableOnly</key>
+	<false/>
+	<key>FreeSpace</key>
+	<integer>0</integer>
+	<key>GlobalPermissionsEnabled</key>
+	<false/>
+	<key>IOKitSize</key>
+	<integer>268435456</integer>
+	<key>IORegistryEntryName</key>
+	<string>Apple Inc. VirtIO Block Media</string>
+	<key>Internal</key>
+	<true/>
+	<key>LowLevelFormatSupported</key>
+	<false/>
+	<key>MediaName</key>
+	<string>Apple Inc. VirtIO Block Media</string>
+	<key>MediaType</key>
+	<string></string>
+	<key>MountPoint</key>
+	<string></string>
+	<key>OS9DriversInstalled</key>
+	<false/>
+	<key>ParentWholeDisk</key>
+	<string>disk0</string>
+	<key>PartitionMapPartition</key>
+	<false/>
+	<key>RAIDMaster</key>
+	<false/>
+	<key>RAIDSlice</key>
+	<false/>
+	<key>Removable</key>
+	<false/>
+	<key>RemovableMedia</key>
+	<false/>
+	<key>RemovableMediaOrExternalDevice</key>
+	<false/>
+	<key>SMARTDeviceSpecificKeysMayVaryNotGuaranteed</key>
+	<dict/>
+	<key>SMARTStatus</key>
+	<string>Not Supported</string>
+	<key>Size</key>
+	<integer>268435456</integer>
+	<key>SolidState</key>
+	<true/>
+	<key>SupportsGlobalPermissionsDisable</key>
+	<false/>
+	<key>SystemImage</key>
+	<false/>
+	<key>TotalSize</key>
+	<integer>268435456</integer>
+	<key>VirtualOrPhysical</key>
+	<string>Unknown</string>
+	<key>VolumeName</key>
+	<string></string>
+	<key>VolumeSize</key>
+	<integer>0</integer>
+	<key>WholeDisk</key>
+	<true/>
+	<key>Writable</key>
+	<true/>
+	<key>WritableMedia</key>
+	<true/>
+	<key>WritableVolume</key>
+	<false/>
+</dict>
+</plist>
