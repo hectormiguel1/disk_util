@@ -49,7 +49,12 @@ Future<List<Disk>> get_disks() async {
             .firstWhere((element) =>
                 element["DeviceIdentifier"] ==
                 vol_info["DeviceIdentifier"])["CapacityInUse"];
-        freeSpace = size - usedSpace;
+        freeSpace = size -
+            usedSpace -
+            (parent_disk.volumes.fold<int>(
+                0,
+                ((previousValue, element) =>
+                    previousValue + element.sizeUsed)));
       }
       parent_disk.volumes.add(Volume(
           fsHandler: Directory(vol_info["DeviceNode"]),
