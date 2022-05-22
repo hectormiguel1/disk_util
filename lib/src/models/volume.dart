@@ -56,6 +56,20 @@ class Volume {
   ///Get the current label for the Volume, if there is none empty [String] is returned
   String get label => _label ?? "";
 
+  operator ==(Object other) {
+    if (other is! Volume) {
+      return false;
+    }
+    return other._isMounted == _isMounted &&
+        mountPoint == other.mountPoint &&
+        fsHandler == other.fsHandler &&
+        size == other.size &&
+        sizeAvailable == other.sizeAvailable &&
+        sizeUsed == other.sizeUsed &&
+        fsType == other.fsType &&
+        label == other.label;
+  }
+
   @override
   String toString() =>
       "Volume{isMounted: $_isMounted, mountPoint: ${_mountPoint ?? ""}, fsHandler: $_fsHandler, FS Type: $_fsType, label: $label, size: $_size bytes, available: $_sizeAvail bytes, used: $_sizeUsed bytes}";

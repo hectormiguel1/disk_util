@@ -30,8 +30,8 @@ Future<List<Disk>> get_disks() async {
           fsSize: element['size'],
           mountPoint: isMounted? Directory(mountpoint!) : null,
           isMounted:  isMounted,
-          sizeAvail:  int.parse(element['fsavail']),
-          sizeUsed:  int.parse(element['fsused']),
+          sizeAvail:  int.parse(element['fsavail'] ?? "0"),
+          sizeUsed:  int.parse(element['fsused'] ?? "0"),
           label: element['label'],
           fsType: FSType.fromString(element['fstype'])
         );

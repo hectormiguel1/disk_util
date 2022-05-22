@@ -42,6 +42,24 @@ class Disk {
   ///Get the current Drive Partition Scheme (MS-DOS or GPT) as a [PTableType] enum
   PTableType get partitionScheme => _pTableType;
 
+  operator ==(Object other) {
+    if (other is! Disk) {
+      return false;
+    }
+    if (other._volumes.length != _volumes.length) {
+      return false;
+    }
+    for (int i = 0; i < _volumes.length; i++) {
+      if (_volumes[i] != other._volumes[i]) {
+        return false;
+      }
+    }
+    return other._fsHandler == _fsHandler &&
+        other._isSystemDrive == _isSystemDrive &&
+        other._pTableType == _pTableType &&
+        other._size == _size;
+  }
+
   @override
   String toString() =>
       "Disk{fsHandler: $_fsHandler, volumes: ${_volumes.map((e) => e.label.isEmpty ? e.fsHandler : e.label)}, size: $_size bytes, isSystemDrive: $isSystemDrive, Partition Scheme: $partitionScheme}  ";
